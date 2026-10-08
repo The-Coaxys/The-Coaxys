@@ -1,38 +1,58 @@
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="assets/hero-dark.svg">
   <source media="(prefers-color-scheme: light)" srcset="assets/hero-light.svg">
-  <img alt="Coaxys: infrastructure, self-hosting and automation" src="assets/hero-dark.svg" width="100%">
+  <img alt="Coaxys: I keep servers boring so the interesting things can run. The o in the name is a coaxial cable cross-section." src="assets/hero-dark.svg" width="100%">
 </picture>
 
 <picture>
-  <source media="(prefers-color-scheme: dark)" srcset="assets/now-dark.svg">
-  <source media="(prefers-color-scheme: light)" srcset="assets/now-light.svg">
-  <img alt="Now" src="assets/now-dark.svg" width="100%">
+  <source media="(prefers-color-scheme: dark)" srcset="assets/h-map-dark.svg">
+  <source media="(prefers-color-scheme: light)" srcset="assets/h-map-light.svg">
+  <img alt="Signal map: how a request travels" src="assets/h-map-dark.svg" width="100%">
 </picture>
-
-- Running my own infrastructure: VPN tunnels, reverse proxies, scheduled backups
-- Wiring small services together with systemd units, webhooks and shell
-- Writing down the gotchas so the next outage is shorter
 
 <picture>
-  <source media="(prefers-color-scheme: dark)" srcset="assets/stack-dark.svg">
-  <source media="(prefers-color-scheme: light)" srcset="assets/stack-light.svg">
-  <img alt="Toolbox" src="assets/stack-dark.svg" width="100%">
+  <source media="(prefers-color-scheme: dark)" srcset="assets/map-dark.svg">
+  <source media="(prefers-color-scheme: light)" srcset="assets/map-light.svg">
+  <img alt="Signal map: a request goes browser, DNS, nginx with TLS, then to the server. A WireGuard tunnel connects a laptop to the same server. Backups stream out through tar, zstd and rclone to a cloud drive." src="assets/map-dark.svg" width="100%">
 </picture>
 
-<p>
-  <img alt="Linux" src="https://img.shields.io/badge/Linux-14181B?style=flat-square&logo=linux&logoColor=F0A53A">
-  <img alt="Docker" src="https://img.shields.io/badge/Docker-14181B?style=flat-square&logo=docker&logoColor=F0A53A">
-  <img alt="Nginx" src="https://img.shields.io/badge/Nginx-14181B?style=flat-square&logo=nginx&logoColor=F0A53A">
-  <img alt="WireGuard" src="https://img.shields.io/badge/WireGuard-14181B?style=flat-square&logo=wireguard&logoColor=F0A53A">
-  <img alt="Bash" src="https://img.shields.io/badge/Bash-14181B?style=flat-square&logo=gnubash&logoColor=F0A53A">
-  <img alt="Python" src="https://img.shields.io/badge/Python-14181B?style=flat-square&logo=python&logoColor=F0A53A">
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="assets/h-patch-dark.svg">
+  <source media="(prefers-color-scheme: light)" srcset="assets/h-patch-light.svg">
+  <img alt="Patch bay: what's plugged in" src="assets/h-patch-dark.svg" width="100%">
+</picture>
+
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="assets/patch-dark.svg">
+  <source media="(prefers-color-scheme: light)" srcset="assets/patch-light.svg">
+  <img alt="Patch bay of ten tools: linux, docker, nginx, wireguard, certbot, bash, redis, python, systemd, rclone." src="assets/patch-dark.svg" width="100%">
+</picture>
+
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="assets/h-scars-dark.svg">
+  <source media="(prefers-color-scheme: light)" srcset="assets/h-scars-light.svg">
+  <img alt="Scars: learned the hard way" src="assets/h-scars-dark.svg" width="100%">
+</picture>
+
+```text
+wireguard  the default port got blocked by an ISP. a custom high port fixed it
+swapfile   fallocate lies on XFS. dd the file, and never swapoff under pressure
+backup     tar --one-file-system quietly skips bind mounts. check what you ship
+monitoring a FAIL on a live database or redis dump is just a file changing mid-read
+```
+
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="assets/h-end-dark.svg">
+  <source media="(prefers-color-scheme: light)" srcset="assets/h-end-light.svg">
+  <img alt="Sign-off: say hello" src="assets/h-end-dark.svg" width="100%">
+</picture>
+
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="assets/signoff-dark.svg">
+  <source media="(prefers-color-scheme: light)" srcset="assets/signoff-light.svg">
+  <img alt="73, ham-radio shorthand for best regards, written in Morse code." src="assets/signoff-dark.svg" width="100%">
+</picture>
+
+<p align="center">
+  <a href="mailto:arsam12sb@gmail.com">arsam12sb@gmail.com</a>
 </p>
-
-<picture>
-  <source media="(prefers-color-scheme: dark)" srcset="assets/find-dark.svg">
-  <source media="(prefers-color-scheme: light)" srcset="assets/find-light.svg">
-  <img alt="Find me" src="assets/find-dark.svg" width="100%">
-</picture>
-
-Pinned repositories sit directly below this README. Email: <arsam12sb@gmail.com>

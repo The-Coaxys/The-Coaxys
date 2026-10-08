@@ -1,0 +1,17 @@
+{
+  "detector": {
+    "ignoreRules": [],
+    "ignoreFiles": [],
+    "ignoreValues": [
+      {
+        "rule": "hero-eyebrow-chip",
+        "value": "*",
+        "files": [
+          "site/index.html"
+        ],
+        "createdAt": "2026-10-08T07:49:02.486Z",
+        "reason": "assistant judgment, not user-confirmed: station readout bar of the coax/instrument concept, left label plus right status, not a SaaS pill chip"
+      }
+    ]
+  }
+}

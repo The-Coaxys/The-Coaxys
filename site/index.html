@@ -25,12 +25,13 @@ html{background:var(--bg)}
 body{margin:0;color:var(--ink);font:500 17px/1.55 var(--display);
   background:linear-gradient(var(--grid) 1px,transparent 1px) 0 0/30px 30px,linear-gradient(90deg,var(--grid) 1px,transparent 1px) 0 0/30px 30px,var(--bg)}
 main{max-width:960px;margin:0 auto;padding:40px 20px 80px}
+.note{font:400 12px/1.6 var(--mono);letter-spacing:.03em;color:var(--mute)}
 .mono{font-family:var(--mono);font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--mute)}
 header .row{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
 h1{margin:10px 0 0;font-weight:800;font-size:clamp(72px,18vw,176px);line-height:.95;letter-spacing:-.02em}
 h1 svg{width:.64em;height:.64em;vertical-align:-.005em;margin:0 .01em}
 .tag{font-size:clamp(20px,3.2vw,28px);margin:18px 0 0}
-.dot{display:inline-block;width:7px;height:7px;border-radius:50%;background:var(--copper);margin-right:8px;animation:bl 3.4s ease-in-out infinite}
+.dot{display:inline-block;width:7px;height:7px;border-radius:50%;background:var(--copper);margin-right:8px}
 @keyframes bl{50%{opacity:.2}}
 section{margin-top:56px}
 h2{display:flex;align-items:baseline;justify-content:space-between;gap:12px;margin:0 0 16px;padding-bottom:10px;border-bottom:1px solid var(--line);
@@ -63,7 +64,7 @@ pre b{color:var(--copper);font-weight:500}
 footer{margin-top:56px;display:flex;justify-content:space-between;align-items:flex-end;gap:16px;flex-wrap:wrap}
 footer .n{font-weight:800;font-size:72px;line-height:1;letter-spacing:-.02em}
 a{color:var(--copper)}
-@media (prefers-reduced-motion:reduce){.dot,.jack.sel .ring{animation:none}}
+@media (prefers-reduced-motion:reduce){.jack.sel .ring{animation:none}}
 </style>
 </head>
 <body>
@@ -87,7 +88,7 @@ a{color:var(--copper)}
     <div class="bar">
       <button id="reset" type="button">Reset cables</button>
       <button id="clear" type="button">Pull all cables</button>
-      <span class="mono" id="hint">Hover or focus a jack. Click two jacks to patch them; click a cable to unplug it.</span>
+      <span class="note" id="hint">Hover or focus a jack. Click two jacks to patch them; click a cable to unplug it.</span>
     </div>
   </div>
 </section>
@@ -223,8 +224,8 @@ a{color:var(--copper)}
       return;
     }
     const t = tools[focus], l = links(focus);
-    const status = pending !== null && pending !== focus ? ` <span class="mono">click to patch ${tools[pending].name} to ${t.name}</span>` : '';
-    info.innerHTML = `<h3>${t.name} <span class="mono">${t.sub}</span></h3><p>${t.detail}</p><p class="mono">${l.length ? 'plugged into: ' + l.join(', ') : 'nothing plugged in'}${status}</p>`;
+    const status = pending !== null && pending !== focus ? ` <span>click to patch ${tools[pending].name} to ${t.name}</span>` : '';
+    info.innerHTML = `<h3>${t.name} <span class="mono">${t.sub}</span></h3><p>${t.detail}</p><p class="note">${l.length ? 'plugged into: ' + l.join(', ') : 'nothing plugged in'}${status}</p>`;
   }
 
   document.getElementById('reset').addEventListener('click', () => { cables = DEFAULT.map(p => p.slice()); pending = null; drawCables(); });

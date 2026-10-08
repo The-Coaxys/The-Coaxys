@@ -1,0 +1,58 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 340" width="900" height="340" role="img" aria-label="Coaxys: infrastructure, self-hosting and automation">
+<title>Coaxys</title>
+<style>
+text{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,'Liberation Mono',monospace}
+.led{animation:b 3.2s ease-in-out infinite}
+@keyframes b{0%,100%{opacity:1}50%{opacity:.25}}
+.in{opacity:0;animation:i .7s ease-out forwards}
+@keyframes i{to{opacity:1}}
+@media (prefers-reduced-motion:reduce){.led,.in{animation:none;opacity:1}}
+</style>
+<rect width="900" height="340" fill="#F3F0E8"/>
+<rect x="0.5" y="0.5" width="899" height="339" fill="none" stroke="#CFC9B9"/>
+<text x="48" y="92" font-size="54" font-weight="700" fill="#1C2226" letter-spacing="-1.5">Coaxys</text>
+<rect x="48" y="112" width="44" height="4" fill="#B96A00"/>
+<text x="48" y="150" font-size="17" fill="#1C2226">I keep servers boring</text>
+<text x="48" y="174" font-size="17" fill="#5E6A70">so the interesting things can run.</text>
+<text x="48" y="262" font-size="12" fill="#5E6A70" letter-spacing="2">SELF-HOSTING / NETWORKING / AUTOMATION</text>
+<text x="48" y="284" font-size="12" fill="#5E6A70" letter-spacing="2">LINUX / DOCKER / NGINX / WIREGUARD</text>
+<rect x="500" y="40" width="352" height="260" rx="4" fill="#E7E3D8" stroke="#CFC9B9"/>
+<circle cx="516" cy="56" r="3" fill="#CFC9B9"/><circle cx="836" cy="56" r="3" fill="#CFC9B9"/>
+<circle cx="516" cy="284" r="3" fill="#CFC9B9"/><circle cx="836" cy="284" r="3" fill="#CFC9B9"/>
+<g class="in" style="animation-delay:0.2s">
+<rect x="528" y="70" width="296" height="42" rx="2" fill="#F3F0E8" stroke="#CFC9B9"/>
+<text x="544" y="88" font-size="10" fill="#5E6A70" letter-spacing="1.5">WG0</text>
+<text x="544" y="104" font-size="14" fill="#1C2226">wireguard</text>
+<text x="700" y="96" font-size="11" fill="#5E6A70">tunnel up</text>
+<circle cx="796" cy="84" r="4" fill="#C9C2AE"/>
+<circle cx="796" cy="84" r="4" fill="#B96A00" class="led" style="animation-delay:0.0s"/>
+<circle cx="808" cy="84" r="4" fill="#C9C2AE"/>
+</g>
+<g class="in" style="animation-delay:0.35s">
+<rect x="528" y="124" width="296" height="42" rx="2" fill="#F3F0E8" stroke="#CFC9B9"/>
+<text x="544" y="142" font-size="10" fill="#5E6A70" letter-spacing="1.5">EDGE</text>
+<text x="544" y="158" font-size="14" fill="#1C2226">nginx</text>
+<text x="700" y="150" font-size="11" fill="#5E6A70">proxying</text>
+<circle cx="796" cy="138" r="4" fill="#C9C2AE"/>
+<circle cx="796" cy="138" r="4" fill="#B96A00" class="led" style="animation-delay:0.7s"/>
+<circle cx="808" cy="138" r="4" fill="#C9C2AE"/>
+</g>
+<g class="in" style="animation-delay:0.5s">
+<rect x="528" y="178" width="296" height="42" rx="2" fill="#F3F0E8" stroke="#CFC9B9"/>
+<text x="544" y="196" font-size="10" fill="#5E6A70" letter-spacing="1.5">JOBS</text>
+<text x="544" y="212" font-size="14" fill="#1C2226">systemd</text>
+<text x="700" y="204" font-size="11" fill="#5E6A70">12 units</text>
+<circle cx="796" cy="192" r="4" fill="#C9C2AE"/>
+<circle cx="796" cy="192" r="4" fill="#B96A00" class="led" style="animation-delay:1.4s"/>
+<circle cx="808" cy="192" r="4" fill="#C9C2AE"/>
+</g>
+<g class="in" style="animation-delay:0.6499999999999999s">
+<rect x="528" y="232" width="296" height="42" rx="2" fill="#F3F0E8" stroke="#CFC9B9"/>
+<text x="544" y="250" font-size="10" fill="#5E6A70" letter-spacing="1.5">COLD</text>
+<text x="544" y="266" font-size="14" fill="#1C2226">backup</text>
+<text x="700" y="258" font-size="11" fill="#5E6A70">streaming</text>
+<circle cx="796" cy="246" r="4" fill="#C9C2AE"/>
+<circle cx="796" cy="246" r="4" fill="#B96A00" class="led" style="animation-delay:2.0999999999999996s"/>
+<circle cx="808" cy="246" r="4" fill="#C9C2AE"/>
+</g>
+</svg>

@@ -5,18 +5,6 @@
 </picture>
 
 <picture>
-  <source media="(prefers-color-scheme: dark)" srcset="assets/h-map-dark.svg">
-  <source media="(prefers-color-scheme: light)" srcset="assets/h-map-light.svg">
-  <img alt="Signal map: how a request travels" src="assets/h-map-dark.svg" width="100%">
-</picture>
-
-<picture>
-  <source media="(prefers-color-scheme: dark)" srcset="assets/map-dark.svg">
-  <source media="(prefers-color-scheme: light)" srcset="assets/map-light.svg">
-  <img alt="Signal map: a request goes browser, DNS, nginx with TLS, then to the server. A WireGuard tunnel connects a laptop to the same server. Backups stream out through tar, zstd and rclone to a cloud drive." src="assets/map-dark.svg" width="100%">
-</picture>
-
-<picture>
   <source media="(prefers-color-scheme: dark)" srcset="assets/h-patch-dark.svg">
   <source media="(prefers-color-scheme: light)" srcset="assets/h-patch-light.svg">
   <img alt="Patch bay: what's plugged in" src="assets/h-patch-dark.svg" width="100%">

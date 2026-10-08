@@ -293,9 +293,7 @@ ${text(F.m400, 'best regards, in ham-radio', 10.5, W - 48, 158, T.mute, { anchor
 for (const [name, T] of Object.entries(THEMES)) {
   const out = {
     hero: hero(T),
-    map: signalMap(T),
     patch: patchBay(T),
-    'h-map': header(T, 'Signal map', 'how a request travels'),
     'h-patch': header(T, 'Patch bay', "what's plugged in"),
     'h-scars': header(T, 'Scars', 'learned the hard way'),
     'h-end': header(T, 'Sign-off', 'say hello'),

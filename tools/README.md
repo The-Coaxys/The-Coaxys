@@ -7,3 +7,6 @@ outlines so GitHub renders it identically, since it blocks web fonts inside `<im
     NODE_PATH=<that dir>/node_modules node tools/build.mjs
 
 Fonts in `fonts/`: Bricolage Grotesque and Martian Mono, both SIL OFL 1.1.
+
+Logos: Simple Icons (CC0) via `npm i simple-icons`, plus `icons/vscode.svg` from Devicon (MIT).
+Logos are trademarks of their owners and appear only to name the tools used.

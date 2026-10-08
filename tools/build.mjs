@@ -4,7 +4,7 @@
 import { createRequire } from 'node:module';
 import { fileURLToPath } from 'node:url';
 import { dirname, join } from 'node:path';
-import { writeFileSync, mkdirSync, readdirSync, unlinkSync } from 'node:fs';
+import { writeFileSync, mkdirSync, readdirSync, unlinkSync, readFileSync } from 'node:fs';
 const require = createRequire(import.meta.url);
 const fontkit = require('fontkit');
 
@@ -290,6 +290,42 @@ ${text(F.m400, 'best regards, in ham-radio', 10.5, W - 48, 158, T.mute, { anchor
   return wrap(W, H, 'Sign-off: the number 73 in Morse code, ham radio shorthand for best regards.', T, inner);
 }
 
+// =============================================================== STACK (logo wall)
+// Marks come from Simple Icons (CC0) except VS Code, which comes from Devicon (MIT); both
+// are trademarks of their owners and are used here only to name the tools I use.
+const si = require('simple-icons');
+const vsc = readFileSync(join(HERE, 'icons', 'vscode.svg'), 'utf8').match(/ d="([^"]+)"/)[1];
+const siPath = (slug) => si['si' + slug[0].toUpperCase() + slug.slice(1)].path;
+const STACK = [
+  ['Python', 'language', siPath('python'), 24], ['TypeScript', 'language', siPath('typescript'), 24],
+  ['JavaScript', 'language', siPath('javascript'), 24], ['React', 'ui library', siPath('react'), 24],
+  ['Vue.js', 'ui framework', siPath('vuedotjs'), 24], ['Node.js', 'runtime', siPath('nodedotjs'), 24],
+  ['npm', 'packages', siPath('npm'), 24], ['VS Code', 'editor', vsc, 128],
+  ['Figma', 'design', siPath('figma'), 24], ['Git', 'versioning', siPath('git'), 24],
+  ['GitHub', 'code host', siPath('github'), 24], ['Gitea', 'self-hosted', siPath('gitea'), 24],
+  ['Docker', 'containers', siPath('docker'), 24], ['Redis', 'cache', siPath('redis'), 24],
+  ['Nginx', 'web server', siPath('nginx'), 24], ['WireGuard', 'vpn', siPath('wireguard'), 24],
+  ['Linux', 'os', siPath('linux'), 24], ['Bash', 'shell', siPath('gnubash'), 24],
+];
+function stack(T) {
+  const W = 900, cols = 6, gap = 10, pad = 24, th = 108;
+  const tw = (W - pad * 2 - gap * (cols - 1)) / cols;
+  const rows = Math.ceil(STACK.length / cols);
+  const H = pad * 2 + rows * th + (rows - 1) * gap;
+  const tiles = STACK.map(([name, kind, d, vb], i) => {
+    const x = pad + (i % cols) * (tw + gap), y = pad + Math.floor(i / cols) * (th + gap);
+    const sc = 34 / vb;
+    return `<g>
+<rect x="${rd(x)}" y="${y}" width="${rd(tw)}" height="${th}" rx="8" fill="${T.bg2}" stroke="${T.line}"/>
+<path transform="translate(${rd(x + 18)} ${y + 18}) scale(${rd4(sc)})" fill="${T.ink}" fill-rule="evenodd" d="${d}"/>
+<circle cx="${rd(x + tw - 14)}" cy="${y + 14}" r="2.4" fill="${T.copper}"/>
+${text(F.d700, name, 16, x + 18, y + 77, T.ink, { ls: -0.2 })}
+${text(F.m400, kind.toUpperCase(), 8.5, x + 18, y + 94, T.mute, { ls: 1.4 })}
+</g>`;
+  }).join('\n');
+  return wrap(W, H, 'Stack: ' + STACK.map((t) => t[0]).join(', ') + '.', T, tiles);
+}
+
 for (const [name, T] of Object.entries(THEMES)) {
   const out = {
     hero: hero(T),
@@ -298,7 +334,11 @@ for (const [name, T] of Object.entries(THEMES)) {
     'h-scars': header(T, 'Scars', 'learned the hard way'),
     'h-end': header(T, 'Sign-off', 'say hello'),
     signoff: signoff(T),
+    stack: stack(T),
+    'h-stack': header(T, 'Stack', 'what I reach for'),
   };
   for (const [k, v] of Object.entries(out)) writeFileSync(join(OUT, `${k}-${name}.svg`), v);
+  mkdirSync(join(HERE, '..', 'site', 'assets'), { recursive: true });
+  for (const k of ['stack', 'h-stack']) writeFileSync(join(HERE, '..', 'site', 'assets', `${k}-${name}.svg`), out[k]);
 }
 console.log('built', readdirSync(OUT).length, 'files');

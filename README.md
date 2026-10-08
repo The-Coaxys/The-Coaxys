@@ -19,6 +19,18 @@
 **[Open the interactive patch bay](https://the-coaxys.github.io/The-Coaxys/)** to hover a tool for its story, then plug in your own cables.
 
 <picture>
+  <source media="(prefers-color-scheme: dark)" srcset="assets/h-stack-dark.svg">
+  <source media="(prefers-color-scheme: light)" srcset="assets/h-stack-light.svg">
+  <img alt="Stack: what I reach for" src="assets/h-stack-dark.svg" width="100%">
+</picture>
+
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="assets/stack-dark.svg">
+  <source media="(prefers-color-scheme: light)" srcset="assets/stack-light.svg">
+  <img alt="Stack: Python, TypeScript, JavaScript, React, Vue.js, Node.js, npm, VS Code, Figma, Git, GitHub, Gitea, Docker, Redis, Nginx, WireGuard, Linux, Bash." src="assets/stack-dark.svg" width="100%">
+</picture>
+
+<picture>
   <source media="(prefers-color-scheme: dark)" srcset="assets/h-scars-dark.svg">
   <source media="(prefers-color-scheme: light)" srcset="assets/h-scars-light.svg">
   <img alt="Scars: learned the hard way" src="assets/h-scars-dark.svg" width="100%">

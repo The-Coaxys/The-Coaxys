@@ -1,0 +1,238 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Coaxys · patch bay</title>
+<meta name="description" content="Coaxys: infrastructure, networking and automation. An interactive patch bay of the tools I run.">
+<style>
+@font-face{font-family:"Bricolage";src:url(fonts/bricolage-grotesque-latin-500-normal.woff) format("woff");font-weight:500;font-display:swap}
+@font-face{font-family:"Bricolage";src:url(fonts/bricolage-grotesque-latin-700-normal.woff) format("woff");font-weight:700;font-display:swap}
+@font-face{font-family:"Bricolage";src:url(fonts/bricolage-grotesque-latin-800-normal.woff) format("woff");font-weight:800;font-display:swap}
+@font-face{font-family:"Martian";src:url(fonts/martian-mono-latin-400-normal.woff) format("woff");font-weight:400;font-display:swap}
+@font-face{font-family:"Martian";src:url(fonts/martian-mono-latin-500-normal.woff) format("woff");font-weight:500;font-display:swap}
+:root{
+  --bg:#F4F0E6;--bg2:#EAE4D4;--grid:#E5DFCE;--line:#CBC3AE;--ink:#1A2023;--mute:#5C686E;
+  --copper:#B25800;--brass:#E09A22;--foam:#D9CDAE;--hole:#2A3236;
+  --display:"Bricolage","Helvetica Neue",Arial,sans-serif;--mono:"Martian",ui-monospace,Menlo,Consolas,monospace;
+}
+@media (prefers-color-scheme:dark){:root{
+  --bg:#0F1315;--bg2:#151B1E;--grid:#192126;--line:#2A353B;--ink:#EDE7D8;--mute:#7F8D94;
+  --copper:#E8892B;--brass:#F6C56E;--foam:#CFC4A8;--hole:#07090A;
+}}
+*{box-sizing:border-box}
+html{background:var(--bg)}
+body{margin:0;color:var(--ink);font:500 17px/1.55 var(--display);
+  background:linear-gradient(var(--grid) 1px,transparent 1px) 0 0/30px 30px,linear-gradient(90deg,var(--grid) 1px,transparent 1px) 0 0/30px 30px,var(--bg)}
+main{max-width:960px;margin:0 auto;padding:40px 20px 80px}
+.mono{font-family:var(--mono);font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--mute)}
+header .row{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
+h1{margin:10px 0 0;font-weight:800;font-size:clamp(72px,18vw,176px);line-height:.95;letter-spacing:-.02em}
+h1 svg{width:.64em;height:.64em;vertical-align:-.005em;margin:0 .01em}
+.tag{font-size:clamp(20px,3.2vw,28px);margin:18px 0 0}
+.dot{display:inline-block;width:7px;height:7px;border-radius:50%;background:var(--copper);margin-right:8px;animation:bl 3.4s ease-in-out infinite}
+@keyframes bl{50%{opacity:.2}}
+section{margin-top:56px}
+h2{display:flex;align-items:baseline;justify-content:space-between;gap:12px;margin:0 0 16px;padding-bottom:10px;border-bottom:1px solid var(--line);
+  font-weight:800;font-size:28px;letter-spacing:-.01em;position:relative}
+h2::after{content:"";position:absolute;left:0;bottom:-1px;height:2px;width:140px;background:var(--copper)}
+.panel{background:var(--bg2);border:1px solid var(--line);border-radius:10px;padding:14px}
+#bay{display:block;width:100%;height:auto;touch-action:manipulation}
+.jack{cursor:pointer;outline:none}
+.jack .ring{fill:var(--bg2);stroke:var(--line);stroke-width:1.5;transition:stroke .15s}
+.jack .well{fill:var(--bg);stroke:var(--line)}
+.jack .hole{fill:var(--hole)}
+.jack:hover .ring,.jack:focus-visible .ring,.jack.sel .ring{stroke:var(--copper);stroke-width:2.5}
+.jack.sel .ring{animation:bl 1s ease-in-out infinite}
+.jack text{font-family:var(--mono);font-size:10.5px;letter-spacing:.2em;fill:var(--ink);text-anchor:middle;pointer-events:none}
+.jack .sub{font-family:var(--display);font-size:13px;letter-spacing:0;fill:var(--mute)}
+.cable{fill:none;stroke-width:4.5;stroke-linecap:round;transition:opacity .15s}
+.cable.halo{stroke:var(--bg2);stroke-width:8}
+.hit{fill:none;stroke:transparent;stroke-width:16;cursor:pointer}
+.dim{opacity:.18}
+.plug{stroke:var(--bg2);stroke-width:2}
+.plug.hole{stroke:none;fill:var(--hole)}
+#info{margin-top:14px;min-height:112px;display:grid;gap:6px}
+#info h3{margin:0;font-weight:800;font-size:24px}
+#info p{margin:0;max-width:62ch}
+.bar{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-top:12px}
+button{font:500 11px var(--mono);letter-spacing:.18em;text-transform:uppercase;color:var(--ink);background:transparent;border:1px solid var(--line);border-radius:6px;padding:9px 12px;cursor:pointer}
+button:hover,button:focus-visible{border-color:var(--copper);outline:none}
+pre{margin:0;padding:18px;border-radius:10px;background:var(--bg2);border:1px solid var(--line);overflow:auto;font:400 13px/1.8 var(--mono)}
+pre b{color:var(--copper);font-weight:500}
+footer{margin-top:56px;display:flex;justify-content:space-between;align-items:flex-end;gap:16px;flex-wrap:wrap}
+footer .n{font-weight:800;font-size:72px;line-height:1;letter-spacing:-.02em}
+a{color:var(--copper)}
+@media (prefers-reduced-motion:reduce){.dot,.jack.sel .ring{animation:none}}
+</style>
+</head>
+<body>
+<main>
+<header>
+  <div class="row mono"><span>The-Coaxys / field station</span><span><i class="dot"></i>signal locked · 75 ohm</span></div>
+  <h1 aria-label="Coaxys">C<svg viewBox="-50 -50 100 100" aria-hidden="true">
+    <circle r="45" fill="none" stroke="var(--ink)" stroke-width="9"/>
+    <circle r="31" fill="var(--foam)"/>
+    <circle r="29" fill="none" stroke="var(--copper)" stroke-width="5" stroke-dasharray="3 1.9"/>
+    <circle r="21" fill="var(--foam)"/><circle r="9" fill="var(--copper)"/><circle cx="-2" cy="-3" r="3" fill="var(--brass)"/>
+  </svg>axys</h1>
+  <p class="tag">I keep servers boring so the interesting things can run.</p>
+</header>
+
+<section>
+  <h2>Patch bay <span class="mono">plug something in</span></h2>
+  <div class="panel">
+    <svg id="bay" viewBox="0 0 900 346" role="group" aria-label="Patch bay of ten tools. Select two jacks to connect them with a cable; select a cable to remove it."></svg>
+    <div id="info" aria-live="polite"></div>
+    <div class="bar">
+      <button id="reset" type="button">Reset cables</button>
+      <button id="clear" type="button">Pull all cables</button>
+      <span class="mono" id="hint">Hover or focus a jack. Click two jacks to patch them; click a cable to unplug it.</span>
+    </div>
+  </div>
+</section>
+
+<section>
+  <h2>Scars <span class="mono">learned the hard way</span></h2>
+<pre><b>wireguard </b> the default port got blocked by an ISP. a custom high port fixed it
+<b>swapfile  </b> fallocate lies on XFS. dd the file, and never swapoff under pressure
+<b>backup    </b> tar --one-file-system quietly skips bind mounts. check what you ship
+<b>monitoring</b> a FAIL on a live database or redis dump is just a file changing mid-read</pre>
+</section>
+
+<footer>
+  <div><div class="mono">sign-off</div><a href="mailto:arsam12sb@gmail.com">arsam12sb@gmail.com</a> · <a href="https://github.com/The-Coaxys">github.com/The-Coaxys</a></div>
+  <div><div class="n">73</div><div class="mono">best regards, in ham-radio</div></div>
+</footer>
+</main>
+
+<script>
+(() => {
+  const NS = 'http://www.w3.org/2000/svg';
+  const xs = [90, 270, 450, 630, 810], yA = 114, yB = 232;
+  const tools = [
+    ['linux', 'the floor', 'Everything here runs on Linux. Boring on purpose: fewer surprises at 3am.'],
+    ['docker', 'boxes', 'Containers for things that want their own dependencies. One catch: tar --one-file-system skips bind mounts, so check what a backup actually contains.'],
+    ['nginx', 'front door', 'Reverse proxy for every public service, with TLS in front. One hostname per service, proxying to a local port.'],
+    ['wireguard', 'private road', 'The private tunnel between my machines. It runs on a custom port, because the default one gets blocked by some ISPs.'],
+    ['certbot', 'padlocks', 'Issues and renews the certificates nginx serves. Renewal hooks reload nginx so nobody notices.'],
+    ['bash', 'glue', 'Small scripts that wire services together. If it grows past a screen, it becomes Python.'],
+    ['redis', 'short memory', 'Fast scratch space. A backup FAIL on a live dump usually just means the file changed mid-read.'],
+    ['python', 'scripts', 'Webhooks, automation and the odd service that sits behind nginx.'],
+    ['systemd', 'keeps it up', 'Units and timers keep every service and job alive, restarted and logged.'],
+    ['rclone', 'off-site copy', 'The last stage of the backup pipeline: tar, then zstd, then rclone straight to cloud storage.'],
+  ].map(([name, sub, detail], i) => ({ name, sub, detail, x: xs[i % 5], y: i < 5 ? yA : yB }));
+  const DEFAULT = [[0, 5], [1, 6], [2, 7], [3, 8], [4, 9]];
+  let cables = DEFAULT.map(p => p.slice());
+  let pending = null, hover = null;
+
+  const svg = document.getElementById('bay');
+  const info = document.getElementById('info');
+  const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const el = (tag, attrs = {}, parent) => {
+    const n = document.createElementNS(NS, tag);
+    for (const k in attrs) n.setAttribute(k, attrs[k]);
+    if (parent) parent.appendChild(n);
+    return n;
+  };
+
+  // static chrome
+  el('rect', { x: 24, y: 14, width: 852, height: 318, rx: 6, fill: 'var(--bg2)', stroke: 'var(--line)' }, svg);
+  [[40, 30], [860, 30], [40, 316], [860, 316]].forEach(([x, y]) => el('circle', { cx: x, cy: y, r: 4.5, fill: 'var(--bg2)', stroke: 'var(--line)' }, svg));
+  const cableLayer = el('g', {}, svg);
+  const jackLayer = el('g', {}, svg);
+  const plugLayer = el('g', { 'pointer-events': 'none' }, svg);
+
+  function pathFor(a, b, n) {
+    const p = tools[a], q = tools[b];
+    if (p.y === q.y) {
+      const dir = p.y === yA ? 1 : -1, sag = 46 + Math.min(Math.abs(p.x - q.x) / 8, 30);
+      return `M${p.x},${p.y} C${p.x},${p.y + dir * sag} ${q.x},${q.y + dir * sag} ${q.x},${q.y}`;
+    }
+    const s = n % 2 ? -1 : 1, dy = q.y - p.y, off = 74 * s;
+    return `M${p.x},${p.y} C${p.x - off},${p.y + dy * .3} ${q.x + off},${q.y - dy * .3} ${q.x},${q.y}`;
+  }
+
+  function drawCables() {
+    cableLayer.replaceChildren();
+    plugLayer.replaceChildren();
+    cables.forEach(([a, b], n) => {
+      const d = pathFor(a, b, n), col = n % 2 ? 'var(--ink)' : 'var(--copper)';
+      const g = el('g', { 'data-a': a, 'data-b': b }, cableLayer);
+      el('path', { d, class: 'cable halo' }, g);
+      el('path', { d, class: 'cable', stroke: col }, g);
+      const pg = el('g', { 'data-a': a, 'data-b': b }, plugLayer);
+      [tools[a], tools[b]].forEach(t => {
+        el('circle', { cx: t.x, cy: t.y, r: 10.5, fill: col, class: 'plug' }, pg);
+        el('circle', { cx: t.x, cy: t.y, r: 4, class: 'plug hole' }, pg);
+      });
+      if (!reduce) {
+        const dot = el('circle', { r: 3, fill: 'var(--brass)', stroke: 'var(--bg2)', 'stroke-width': 1.5 }, g);
+        const m = el('animateMotion', { dur: `${3.4 + (n % 5) * .5}s`, repeatCount: 'indefinite', path: d }, dot);
+        m.setAttribute('begin', `${(n % 4) * .6}s`);
+      }
+      const hit = el('path', { d, class: 'hit' }, g);
+      hit.addEventListener('click', () => { cables.splice(n, 1); drawCables(); refresh(); });
+      hit.addEventListener('mouseenter', () => { hover = null; refresh(); });
+    });
+    refresh();
+  }
+
+  const jackEls = tools.map((t, i) => {
+    const g = el('g', { class: 'jack', tabindex: 0, role: 'button', 'aria-label': `${t.name}, ${t.sub}` }, jackLayer);
+    el('circle', { cx: t.x, cy: t.y, r: 22, class: 'ring' }, g);
+    el('circle', { cx: t.x, cy: t.y, r: 15, class: 'well' }, g);
+    el('circle', { cx: t.x, cy: t.y, r: 8, class: 'hole' }, g);
+    const top = t.y === yA;
+    el('text', { x: t.x, y: top ? t.y - 50 : t.y + 50 }, g).textContent = t.name.toUpperCase();
+    el('text', { x: t.x, y: top ? t.y - 33 : t.y + 67, class: 'sub' }, g).textContent = t.sub;
+    g.addEventListener('mouseenter', () => { hover = i; refresh(); });
+    g.addEventListener('mouseleave', () => { hover = null; refresh(); });
+    g.addEventListener('focus', () => { hover = i; refresh(); });
+    g.addEventListener('blur', () => { hover = null; refresh(); });
+    g.addEventListener('click', () => choose(i));
+    g.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); choose(i); } });
+    return g;
+  });
+
+  function choose(i) {
+    if (pending === null) { pending = i; }
+    else if (pending === i) { pending = null; }
+    else {
+      const k = cables.findIndex(([a, b]) => (a === pending && b === i) || (a === i && b === pending));
+      if (k >= 0) cables.splice(k, 1); else cables.push([pending, i]);
+      pending = null;
+      drawCables();
+    }
+    refresh();
+  }
+
+  function links(i) {
+    return cables.filter(([a, b]) => a === i || b === i).map(([a, b]) => tools[a === i ? b : a].name);
+  }
+
+  function refresh() {
+    const focus = hover !== null ? hover : pending;
+    jackEls.forEach((g, i) => g.classList.toggle('sel', pending === i));
+    [...cableLayer.children, ...plugLayer.children].forEach(g => {
+      const on = focus === null || +g.dataset.a === focus || +g.dataset.b === focus;
+      g.classList.toggle('dim', !on);
+    });
+    if (focus === null) {
+      info.innerHTML = '<h3>Ten tools, five cables</h3><p>Everything I run is wired to something else. Poke around: connect any two jacks and see how the pieces fit.</p>';
+      return;
+    }
+    const t = tools[focus], l = links(focus);
+    const status = pending !== null && pending !== focus ? ` <span class="mono">click to patch ${tools[pending].name} to ${t.name}</span>` : '';
+    info.innerHTML = `<h3>${t.name} <span class="mono">${t.sub}</span></h3><p>${t.detail}</p><p class="mono">${l.length ? 'plugged into: ' + l.join(', ') : 'nothing plugged in'}${status}</p>`;
+  }
+
+  document.getElementById('reset').addEventListener('click', () => { cables = DEFAULT.map(p => p.slice()); pending = null; drawCables(); });
+  document.getElementById('clear').addEventListener('click', () => { cables = []; pending = null; drawCables(); });
+  addEventListener('keydown', e => { if (e.key === 'Escape') { pending = null; refresh(); } });
+  drawCables();
+  window.__bay = { choose, get cables() { return cables; } };
+})();
+</script>
+</body>
+</html>

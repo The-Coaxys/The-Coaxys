@@ -16,6 +16,8 @@
   <img alt="Patch bay of ten tools: linux, docker, nginx, wireguard, certbot, bash, redis, python, systemd, rclone." src="assets/patch-dark.svg" width="100%">
 </picture>
 
+**[Open the interactive patch bay](https://the-coaxys.github.io/The-Coaxys/)** to hover a tool for its story, then plug in your own cables.
+
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="assets/h-scars-dark.svg">
   <source media="(prefers-color-scheme: light)" srcset="assets/h-scars-light.svg">
